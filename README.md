@@ -12,6 +12,8 @@ I am naive. If I ever knew this was a popular problem I forgot it.
 
 I really like test.check. A lot. This will part of how I do tests going forward.
 
+And, yes, I prefer to not have to deal with all those silly classes in most cases.
+
 ## License
 
 Copyright © 2015
