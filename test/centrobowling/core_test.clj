@@ -71,6 +71,16 @@
     (t/is (= (score [10 10 10 0])
              (+ 30 20 10)))))
 
+(t/deftest no-rolls
+  (t/testing "no rolls"
+    (t/is (= (score [])
+             0))))
+
+(t/deftest one-gutter
+  (t/testing "one gutter"
+    (t/is (= (score [0])
+             0))))
+
 (t/deftest eleven-gutters
   (t/testing "eleven gutters"
     (t/is (= (score [0 0 0 0 0 0 0 0 0 0 0])
