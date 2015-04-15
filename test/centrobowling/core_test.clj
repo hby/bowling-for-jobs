@@ -104,3 +104,9 @@
                            (= (score rolls)
                               (apply + rolls))))
 
+(tct/defspec partial-game-no-strikes-or-spares-frames-is-simple-pairwise-sum
+             100
+             (prop/for-all [rolls (gen/vector (gen/choose 0 4) 1 19)]
+                           (= (frames rolls)
+                              (map #(apply + %) (partition-all 2 rolls)))))
+
