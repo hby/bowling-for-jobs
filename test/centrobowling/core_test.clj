@@ -108,5 +108,5 @@
              100
              (prop/for-all [rolls (gen/vector (gen/choose 0 4) 1 19)]
                            (= (frames rolls)
-                              (map #(apply + %) (partition-all 2 rolls)))))
+                              (map (partial apply +) (partition-all 2 rolls)))))
 
