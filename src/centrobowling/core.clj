@@ -6,14 +6,14 @@
 ;; compute:
 ;;  the score so far
 
-(defn applyfnil
+(defn fnil*
   [f x]
   (fn [& args]
     (apply f (map (fnil identity x) args))))
 
 (defn +nil
   [& args]
-  (apply (applyfnil + 0) args))
+  (apply (fnil* + 0) args))
 
 (defn list*-xnil
   "Works like list* but eliminates trailing nils.
