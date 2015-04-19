@@ -7,6 +7,7 @@
 ;;  the score so far
 
 (defn fnil*
+  "like fnil but applies to all args"
   [f x]
   (fn [& args]
     (apply f (map (fnil identity x) args))))
