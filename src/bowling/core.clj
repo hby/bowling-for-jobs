@@ -1,4 +1,4 @@
-(ns centrobowling.core)
+(ns bowling.core)
 
 
 ;; Given:

@@ -1,10 +1,10 @@
-(ns centrobowling.core-test
+(ns bowling.core-test
   (:require [clojure.test :as t]
             [clojure.test.check.clojure-test :as tct]
             [clojure.test.check :as tc]
             [clojure.test.check.generators :as gen]
             [clojure.test.check.properties :as prop]
-            [centrobowling.core :refer :all]))
+            [bowling.core :refer :all]))
 
 (t/deftest one-then-gutter
   (t/testing "one pin per frame"

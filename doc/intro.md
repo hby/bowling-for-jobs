@@ -1,3 +1,3 @@
-# Introduction to centrobowling
+# Introduction to bowling
 
 TODO: write [great documentation](http://jacobian.org/writing/what-to-write/)
