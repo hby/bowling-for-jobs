@@ -6,9 +6,14 @@
 ;; compute:
 ;;  the score so far
 
-(defn zeronil+
+(defn applyfnil
+  [f x]
+  (fn [& args]
+    (apply f (map #(if (nil? %) x %) args))))
+
+(defn +nil
   [& args]
-  (apply + (filter identity args)))
+  (apply (applyfnil + 0) args))
 
 (defn list*-xnil
   "Works like list* but eliminates trailing nils.
@@ -22,16 +27,16 @@
   [[r r1 r2 & rs] fnum]
   (cond
     (= 10 fnum)
-    [(zeronil+ r r1 r2) nil]
+    [(+nil r r1 r2) nil]
 
     (= r 10) ; strike
-    [(zeronil+ 10 r1 r2) (list*-xnil r1 r2 rs)]
+    [(+nil 10 r1 r2) (list*-xnil r1 r2 rs)]
 
-    (= (zeronil+ r r1) 10) ; spare
-    [(zeronil+ 10 r2) (list*-xnil r2 rs)]
+    (= (+nil r r1) 10) ; spare
+    [(+nil 10 r2) (list*-xnil r2 rs)]
 
     :else
-    [(zeronil+ r r1) (list*-xnil r2 rs)]))
+    [(+nil r r1) (list*-xnil r2 rs)]))
 
 (defn frames
   "sequence of frame scores"
