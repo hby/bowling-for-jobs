@@ -9,7 +9,7 @@
 (defn applyfnil
   [f x]
   (fn [& args]
-    (apply f (map #(if (nil? %) x %) args))))
+    (apply f (map (fnil identity x) args))))
 
 (defn +nil
   [& args]
