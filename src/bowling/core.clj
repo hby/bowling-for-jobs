@@ -24,30 +24,40 @@
 
 (defn take-frame
   "from a sequence of rolls,
-  return 2 element vector of next frame score and the rest of the rolls"
-  [[r r1 r2 & rs] fnum]
+  take one frame (the sum of the rolls that add up for the frame score)"
+  [[r r1 r2 & _]]
   (cond
-    (= 10 fnum)
-    [(+nil r r1 r2) nil]
-
     (= r 10) ; strike
-    [(+nil 10 r1 r2) (list*-xnil r1 r2 rs)]
+    (+nil 10 r1 r2)
 
     (= (+nil r r1) 10) ; spare
-    [(+nil 10 r2) (list*-xnil r2 rs)]
+    (+nil 10 r2)
 
     :else
-    [(+nil r r1) (list*-xnil r2 rs)]))
+    (+nil r r1)))
+
+(defn drop-frame
+  "from a sequence of rolls,
+  drop the number of rolls that make up one frame"
+  [[r r1 r2 & rs]]
+  (cond
+    (= r 10) ; strike
+    (list*-xnil r1 r2 rs)
+
+    (nil? r1)
+    nil
+
+    :else
+    (list*-xnil r2 rs)))
 
 (defn frames
   "sequence of frame scores"
   [rolls]
-  (loop [frames [] rs rolls fnum 1]
-    (if (empty? rs)
-      frames
-      (let [[fs rrs] (take-frame rs fnum)]
-        (recur (conj frames fs) rrs (inc fnum))))))
+  (if (empty? rolls)
+    nil
+    (lazy-seq (cons (take-frame rolls)
+                    (frames (drop-frame rolls))))))
 
 (defn score [rolls]
   "add up frames"
-  (reduce + 0 (frames rolls)))
+  (reduce + (take 10 (frames rolls))))
